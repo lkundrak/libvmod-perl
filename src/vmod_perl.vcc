@@ -1,0 +1,8 @@
+Module perl
+Init init_function
+
+Function VOID eval(PRIV_VCL, STRING)
+Function STRING string(PRIV_VCL, STRING, STRING_LIST)
+Function BOOL bool(PRIV_VCL, STRING, STRING_LIST)
+Function INT num(PRIV_VCL, STRING, STRING_LIST)
+Function VOID call(PRIV_VCL, STRING, STRING_LIST)

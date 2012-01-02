@@ -1,0 +1,26 @@
+varnishtest "Test example vmod"
+
+server s1 {
+       rxreq
+       txresp
+} -start
+
+varnish v1 -vcl+backend {
+	import perl from "${vmod_topbuild}/src/.libs/libvmod_perl.so";
+
+	sub vcl_init {
+		perl.eval("sub Hello { return 'Hello, '.shift }");
+	}
+
+	sub vcl_deliver {
+		set resp.http.hello = perl.string("Hello", "World");
+	}
+} -start
+
+client c1 {
+	txreq -url "/"
+	rxresp
+	expect resp.http.hello == "Hello, World"
+}
+
+client c1 -run
